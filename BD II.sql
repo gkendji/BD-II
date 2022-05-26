@@ -392,3 +392,34 @@ on p.ID_PET = e.idpet
 inner join MedVeterinario m
 on m.ID_MEDICO = e.ID_MEDICO
 go
+
+select * from cliente_pet_medico
+
+/* view deve pegar duas tabelas e ser util para duas consultas */
+/* a ideia é juntar todas as informações necessárias para um contato deemergencia e aviasr o dono do pet
+   entao terá nome/id do pet, nome/id cliente telefone, */
+
+create view contato_emergencia
+as
+select
+	p.ID_PET as 'identificação(PET)',
+	p.nome as 'Nome Pet',
+	c.nome as 'Dono',
+	c.telefone as 'Contato',
+	m.nome as 'Médico',
+	e.DATA_EXAME as 'data do exame'
+from pet p
+inner join cliente c
+on p.idCliente = c.ID_cliente
+inner join exame e
+on p.ID_PET = e.idpet
+inner join MedVeterinario m
+on m.ID_MEDICO = e.ID_MEDICO
+go
+
+select * from contato_emergencia	
+
+select * from contato_emergencia
+where [identificação(PET)] = 3
+
+insert into contato_emergencia values (9, 'PEPI', 'Rodolfo', '039281945', 'Fabio', '2022-09-01')
