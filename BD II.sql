@@ -376,3 +376,19 @@ select * from remedio
 
 
 /* criar uma view que mostre somente Nome do cliente, nome do pet e o nome do medico */
+
+create view cliente_pet_medico
+as
+select
+	c.ID_CLIENTE as 'Identificação',
+	c.nome as 'Nome Cliente', 
+	p.nome as 'Nome Pet',
+	m.nome as 'Nome Médico'
+from cliente c
+inner join pet p
+on c.ID_CLIENTE = p.idCliente
+inner join exame e
+on p.ID_PET = e.idpet
+inner join MedVeterinario m
+on m.ID_MEDICO = e.ID_MEDICO
+go
